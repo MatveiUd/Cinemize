@@ -1,61 +1,52 @@
 import React, { Component} from 'react'
+import axios from 'axios'
 
-
-function authentication(e) {
-    e.preventDefault();
-
-    let username = e.target.elements.username.value;
-    let password = e.target.elements.password.value
-
-
-    const userPassInBase64 = btoa(username + ':' + password);
-
-    const headers = new Headers();
-    headers.set('Authorization', 'Basic ' + userPassInBase64)
-
-    const url = 'http://localhost:8080/api/test/login'
-    fetch(url, {
-      method: 'GET',
-      headers
+function axionsFetch(e) {
+    e.preventDefault()
+    let formData = new FormData();
+    formData.append('username', 'admin')
+    formData.append('password','admin')
+    const url = "http://localhost:8080/api/login"
+    axios.post(url, formData)
+    .then(function (response) {
+        console.log(response.data);
     })
-      .then(response => {
-        if (response.ok) {
-          localStorage.setItem('user:pass', userPassInBase64);
-          console.log("okd");
-        } else if (response.status === 401) {
-          alert('не существует пользователя с таким именем и паролем')
-        } else {
-          throw new Error('invalid response')
-        }
-      })
-      .catch(error => console.log(error))
+    .catch(function (error) {
+        console.log(error);
+    });
 }
+
 function fetchForSignin(e) {
     e.preventDefault()
     let username = e.target.elements.username.value;
     let password = e.target.elements.password.value
 
-    const url = "http://localhost:8080/film"
-    let header = new Headers();
-      
-    let encoded = btoa(`${username}:${password}`)
-    let auth = 'Basic ' + encoded;
-    console.log(auth);
-    header.set('Authorization',auth);  
+    const url = "http://localhost:8080/api/login"
+    let formData = new FormData();
+    formData.append('username', username)
+    formData.append('password',password)
+     
     let req = new Request(url, {
-        method: 'GET',
-        headers: header,
-        //credentials:'include'
+        method: 'POST',
+        body: formData,
+        redirect: 'follow'  
     })
     fetch(req)
-        .then((response) => {
-            if (response.ok) {
-                console.log(response.json()); 
-            } else {
-                console.log("GOsa");
-            }
-        })
-    
+    .then((response) => response.text())
+      .then((result) => {
+        console.log(result)
+      })
+    //     .then(response => {
+    //         if (response.ok) {
+    //       localStorage.setItem('isAuth', true);
+    //       console.log("okd");
+    //     } else if (response.status === 401) {
+    //       alert('не существует пользователя с таким именем и паролем')
+    //     } else {
+    //       throw new Error('invalid response')
+    //     }
+    //     })
+    // .catch(error => console.log(error))
 }
 
 
@@ -67,7 +58,7 @@ class login extends Component{
         return (
             <div className="login-wrapper">
             <h1>Please Log In</h1>
-                <form onSubmit={ authentication}>
+                <form onSubmit={axionsFetch}>
                 <label>
                 <p>Username</p>
                         <input type="text" name="username" />

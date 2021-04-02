@@ -12,10 +12,11 @@ class UserProfile extends Component{
     }
     
     componentDidMount() {
-
+    
         fetch('http://localhost:8080/user', {
             
             method: "GET",
+
             credentials: 'include'
         })
             .then((response) => response.json())

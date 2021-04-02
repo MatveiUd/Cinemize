@@ -12,14 +12,20 @@ class film extends Component{
   }
 
   componentDidMount() {
+    let req;
     const url = "http://localhost:8080/film"
-    
-    let req = new Request(url, {
+    if (localStorage.isAuth) {
+      req = new Request(url, {
 
         method: 'GET',
         credentials: 'include'
-        
+    }) 
+    } else {
+      req = new Request(url, {
+        method: 'GET',
     })
+    }
+    
     fetch(req)
       .then((response) => response.json())
       .then((result) => {

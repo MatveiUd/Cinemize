@@ -1,7 +1,7 @@
 package course.cinemize.controller;
 
 
-import course.cinemize.exceptions.NotFoundException;
+
 import course.cinemize.models.UserModel;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +44,7 @@ public class NewController {
         return films.stream()
                 .filter(film -> film.get("id").equals(id))
                 .findFirst()
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow();
     }
 
     @PostMapping
