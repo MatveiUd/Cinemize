@@ -1,52 +1,38 @@
 import React,{Component} from 'react'
-
+function isAuth() {
+    if ("user" in localStorage) {
+        return JSON.parse(localStorage.user)
+    } else return null
+}
 class UserProfile extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-            error: null,
-            username: "",
-            userId: "",
-            userPassword: ""
+        const user = isAuth();
+        if (user != null) {
+            this.state = {
+            username: user.username,
+            userId: user.id,
+            userPassword: user.password
+            };
+        } else {
+            this.state = {
+            username: null,
+            userId: null,
+            userPassword: null
         };
+        }
+        
     }
     
     componentDidMount() {
     
-        fetch('http://localhost:8080/user', {
-            
-            method: "GET",
-
-            credentials: 'include'
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result)
-                this.setState({
-                    username: result.username,
-                    userId: result.id,
-                    userPassword: result.password
-                    
-
-                })
-
-            },
-                (error) => {
-                    console.log(error)
-                    this.setState({
-                        error
-                    });
-                });
+       
     }
     render() {
-        const { error, username ,userId,userPassword} = this.state;
-        if (error) {
-            return (<div>ОШИБОЧКА</div>);
-        }else {
-            
-            if ( username=== "null") {
+        const { username ,userId,userPassword} = this.state;
+        if ( username=== null) {
                 return (
-                    <div>Приветствуем гость</div>
+                    <div><a href="/login">Войти</a></div>
                 )
             } else {
                 return (
@@ -60,7 +46,6 @@ class UserProfile extends Component{
                     
                 )
             }
-        }
     }
 }
 export default UserProfile

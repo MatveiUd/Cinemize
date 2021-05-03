@@ -33,18 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/api/film","/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginProcessingUrl("/api/login")
-                .defaultSuccessUrl("/api/login/success",true)
-                .failureForwardUrl("/api/login/error")
-                .and()
-                .logout()
-                .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID")
-                ;
+                .httpBasic();
     }
     @Bean
     public PasswordEncoder encoder() {
