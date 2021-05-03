@@ -1,64 +1,57 @@
 import React, { Component} from 'react'
-import axios from 'axios'
+import { Redirect } from 'react-router';
 
-function axionsFetch(e) {
-    e.preventDefault()
-    let formData = new FormData();
-    formData.append('username', 'admin')
-    formData.append('password','admin')
-    const url = "http://localhost:8080/api/login"
-    axios.post(url, formData)
-    .then(function (response) {
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-}
 
-function fetchForSignin(e) {
-    e.preventDefault()
-    let username = e.target.elements.username.value;
-    let password = e.target.elements.password.value
-
-    const url = "http://localhost:8080/api/login"
-    let formData = new FormData();
-    formData.append('username', username)
-    formData.append('password',password)
-     
-    let req = new Request(url, {
-        method: 'POST',
-        body: formData,
-        redirect: 'follow'  
-    })
-    fetch(req)
-    .then((response) => response.text())
-      .then((result) => {
-        console.log(result)
-      })
-    //     .then(response => {
-    //         if (response.ok) {
-    //       localStorage.setItem('isAuth', true);
-    //       console.log("okd");
-    //     } else if (response.status === 401) {
-    //       alert('не существует пользователя с таким именем и паролем')
-    //     } else {
-    //       throw new Error('invalid response')
-    //     }
-    //     })
-    // .catch(error => console.log(error))
-}
 
 
 
 class login extends Component{
+     constructor(props) {
+        super(props);
+        this.state = {
+            referrer: null,
+         };
+         this.auth = this.auth.bind(this);
+    }
+    async auth(e) {
+        e.preventDefault();
+
+        let username = e.target.elements.username.value;
+        let password = e.target.elements.password.value
+
+        const userPassInBase64 = btoa(username + ':' + password);
+
+        const headers = new Headers();
+        headers.set('Authorization', 'Basic ' + userPassInBase64)
+
+        const url = 'http://localhost:8080/api/test/login'
+        const test = "http://localhost:8080/user"
+        const response = await fetch(test, {
+            method: "GET",
+            headers
+        })
+        if (response.ok) {
+            const data = await response.json()
+            localStorage.setItem("authData", userPassInBase64)
+            localStorage.setItem("user", JSON.stringify(data))
+            this.setState({referrer:'/lk'})
+        } else if (response.status === 401) {
+            alert('Пользователь не найден')
+        } else {
+            throw new Error('invalid response')
+        }
     
+    }
     render() {
         
-        return (
+        
+        const {referrer} = this.state
+        if (referrer) return <Redirect to={referrer} />
+        else {
+            return (
             <div className="login-wrapper">
             <h1>Please Log In</h1>
-                <form onSubmit={axionsFetch}>
+                <form onSubmit={this.auth}>
                 <label>
                 <p>Username</p>
                         <input type="text" name="username" />
@@ -73,7 +66,11 @@ class login extends Component{
                 </div>
                 </form>    
             </div>
-        )
+        )    
+        }
+        
+        
+        
     }
 }
 export default login

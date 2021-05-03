@@ -1,40 +1,21 @@
 import React,{Component} from 'react'
+function isAuth() {
+    if ("user" in localStorage) {
+        return (JSON.parse(localStorage.user)).username
+    } else return null
+}
 
 class main extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            username: ""
+            username: isAuth()
         };
-    }
-    componentDidMount() {
-        fetch('http://localhost:8080', {
-            method: "GET",
-            credentials:'include'
-        })
-            .then((response) => response.text())
-            .then((result) => {
-                this.setState({
-                    username: result
-
-                })
-            },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                });
     }
     render() {
         
-        const { error, username } = this.state
-        if (error) {
-            return (<div>ОШИБОЧКА</div>);
-        } else {
-            
-            if (username === "null") {
+        const { username } = this.state
+        if (username === null) {
                 return (
                     <div>Приветствуем гость</div>
                 )
@@ -43,7 +24,6 @@ class main extends Component{
                     <div>Приветствуем {username}</div>
                 )
             }
-        }
         
     }
     

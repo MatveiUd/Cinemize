@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+  
 
 
 class film extends Component{
@@ -12,21 +12,9 @@ class film extends Component{
   }
 
   componentDidMount() {
-    let req;
-    const url = "http://localhost:8080/film"
-    if (localStorage.isAuth) {
-      req = new Request(url, {
-
-        method: 'GET',
-        credentials: 'include'
-    }) 
-    } else {
-      req = new Request(url, {
-        method: 'GET',
-    })
-    }
+    const url = "http://localhost:8080/api/film"
     
-    fetch(req)
+    fetch(url)
       .then((response) => response.json())
       .then((result) => {
         this.setState({
@@ -50,13 +38,15 @@ class film extends Component{
       return (
       <div>
         <h1>CINEMIZE</h1>
-        <ul>
+
           {
-            films.map(film => 
-              <li key={ film.id}> {film.text} </li>)
-          }
-        </ul>
-        
+            films.map(film =>
+              <div key={ film.id}>
+                <h3>{film.title}</h3>
+                <h4>{film.originTitle}</h4>
+                <span>{ film.genre}</span>
+              </div>)
+        }
         
       </div>
     )}
