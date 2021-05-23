@@ -16,11 +16,12 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel user = userRepository.findUserByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserModel user = userRepository.findUserByUsername(email);
         if (user == null){
             throw new UsernameNotFoundException("User not found");
         }
+
         UserDetails userDetails = User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())

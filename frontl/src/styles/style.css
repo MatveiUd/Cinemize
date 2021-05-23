@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "./reset.css";
+
+body {
+  /*background-color: rgba(29, 29, 29, 1);*/
+  background: #121212;
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.container {
+  width: 1120px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.contact__info {
+  margin-top: 50px;
+  margin-bottom: 120px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 400;
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.adress {
+  left: 0;
+  width: 280px;
+  line-height: 38px;
+}
+
+.adress:last-child {
+  margin-top: 25px;
+}
+
+.phone__number {
+  right: 0;
+  line-height: 38px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.menu__button {
+  color: #ffffff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 98px;
+  width: 278px;
+}
+
+.menu__button__border__one {
+  display: none;
+  border: 3px #a96bf8 solid;
+  position: absolute;
+  height: 84px;
+  width: 264px;
+  left: 0;
+  top: 0;
+}
+
+.menu__button__border__two {
+  display: none;
+  border: 3px #05bbb0 solid;
+  position: absolute;
+  height: 84px;
+  width: 264px;
+  right: 0;
+  bottom: 0;
+}
+
+.menu__button p {
+  margin: auto;
+}
+
+/*.menu__button:hover {
+	font-weight: 600;
+}*/
+
+.menu__button:hover .menu__button__border__one {
+  display: block;
+}
+
+.menu__button:hover .menu__button__border__two {
+  display: block;
+}
+
+.menu__button.active .menu__button__border__one {
+  display: block;
+}
+
+.active .menu__button__border__two {
+  display: block;
+}
+
+.days {
+  width: 95%;
+  margin: auto;
+  position: relative;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #a2e2de;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.selected__date {
+  pointer-events: none;
+  color: #d5b5fd;
+  display: block;
+  box-shadow: 0 2px 0 0 #d5b5fd;
+}
+
+.days p:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 0 0 #a2e2de;
+}
+
+.film__card {
+  margin-top: 100px;
+  position: relative;
+  color: #ffffff;
+}
+
+.film__card h1 {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.film__card h2 {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.film__card p {
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.film__card img {
+  width: 100%;
+  height: auto;
+}
+
+.buy__button {
+  color: #ffffff;
+  position: absolute;
+  height: 134px;
+  width: 414px;
+  bottom: 0;
+  right: 0;
+}
+
+.buy__button__border__one {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  width: 400px;
+  border: 3px #05bbb0 solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buy__button__border__one p {
+  font-weight: 600;
+  font-size: 40px;
+  margin: auto;
+}
+
+.buy__button__border__two {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 120px;
+  width: 400px;
+  border: 3px #a96bf8 solid;
+}
+
+.buy__button:hover .buy__button__border__two {
+  display: block;
+}
+
+.footer {
+  height: 300px;
+  margin-top: 130px;
+  position: relative;
+  font-weight: 500;
+  font-size: 25px;
+  color: #a2e2de;
+}
+
+.left__column {
+  position: absolute;
+  left: 0;
+  width: 33%;
+}
+
+.left__column p {
+  margin-bottom: 20px;
+}
+
+.left__column a {
+  color: #a2e2de;
+  box-shadow: 0 1px 0 0 #a2e2de;
+}
+
+.right__column {
+  position: absolute;
+  right: 0;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.right__column p {
+  margin-bottom: 20px;
+}
+
+.login__button {
+  height: 38px;
+  right: 0;
+  margin-top: 25px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.login__button img {
+  content: url("../img/login.svg");
+  display: block;
+  height: 100%;
+  width: auto;
+  margin-right: 10px;
+}
+
+.login__button p {
+  color: #ffffff;
+  display: block;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.login__button:hover p {
+  color: #a2e2de;
+}
+
+.login__button:hover img {
+  content: url("../img/login_hover.svg");
+}

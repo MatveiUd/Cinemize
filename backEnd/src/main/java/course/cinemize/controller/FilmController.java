@@ -2,6 +2,7 @@ package course.cinemize.controller;
 
 import course.cinemize.models.Film;
 import course.cinemize.models.Frame;
+import course.cinemize.models.Genre;
 import course.cinemize.repo.FilmRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,16 @@ public class FilmController {
     public void addFilm(@RequestParam String title,
                         @RequestParam String originTitle,
                         @RequestParam String description,
-                        @RequestParam String genre,
+                        @RequestParam List<String> genre,
                         @RequestParam String country,
                         @RequestParam String director,
                         @RequestParam Long data,
                         @RequestParam String duration,
                         @RequestParam List<String> imagesUrl){
+        ArrayList<Genre> genres = new ArrayList<>();
+        for (int i = 0;i<genre.size();i++){
+            genres.add(new Genre(genre.get(i)));
+        }
         ArrayList<Frame> frames= new ArrayList<Frame>();
         for(int i= 0;i<imagesUrl.size();i++){
             if(i == 0 ){
@@ -44,6 +49,6 @@ public class FilmController {
             }
 
         }
-        filmRepo.save(new Film(title,originTitle,description,genre,country,director,data,duration,frames));
+        filmRepo.save(new Film(title,originTitle,description,genres,country,director,data,duration,frames));
     }
 }

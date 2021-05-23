@@ -1,11 +1,6 @@
 import React,{Component} from 'react'
+import logo from '../img/logo.png'
 
-const styles = {
-    a: {
-        display:"inline-block",
-        padding:"10px"
-    }
-}
 
 class main extends Component{
     logout() {
@@ -20,39 +15,83 @@ class main extends Component{
             }
         } else return false     
     }
-    render() {
-        let header;
-        if ("user" in localStorage) {
-            if (this.isAdmin()) {
-                header =
-                <div >
-                    <a style={styles.a} href="/main">Главная страница</a>
-                    <a style={styles.a} href="/films">Все фильмы</a>
-                    <a style={styles.a} href="/lk">Личный кабинет</a>
-                    <a style={styles.a} href="/addfilm">Добавить фильм</a>
-                    <a style={styles.a} href="/users">Пользователи</a>
-                    <button onClick={this.logout} >Выйти</button>
-                </div>
-            } else {
-               header =
-                <div >
-                    <a style={styles.a} href="/main">Главная страница</a>
-                    <a style={styles.a} href="/films">Все фильмы</a>
-                    <a style={styles.a} href="/lk">Личный кабинет</a>
-                    <button onClick={this.logout} >Выйти</button>
-                </div> 
-            }
+    isSchedule() {
+        if (window.location.pathname === "/") {
             
-        } else {
-            header =
-                <div>
-                    <a style={styles.a} href="/main">Главная страница</a>
-                    <a style={styles.a} href="/films">Все фильмы</a>
-                    <a style={styles.a} href="/login">Войти</a>
-                </div>
+            return true
+        } else return false
+    }
+    isFilms() {
+        if (window.location.pathname === '/films') {
+            
+            return true
+        } else return false
+    }
+    isVisitors() {
+        if (window.location.pathname === '/visitors') {
+            
+            return true
+        } else return false
+    }
+    render() {
+        let name;
+        if ("user" in localStorage) {
+            name = 
+                    <a href="/lk" className="login__button">
+                        
+                        <img alt="Картинка загружается"  property="image" />
+                <p>{JSON.parse(localStorage.user).name}</p>
+                      
+					</a>
+        } else name = <a href="/login" className="login__button">
+            <img alt="Картинка загружается" property="image" />
+            <p>вход</p>
+					</a>
+        let header;
+        header =
+            <div className="container">
+            <a href="/">
+                <img className="logo" src={ logo} alt="Картинка загружается"  property="image"/>
+            </a>
                 
-                
-        }
+
+			<div className="contact__info">
+				<div>
+					<p className="adress">Санкт-Петербург,</p>
+					<p className="adress">Варшавская, 3</p>
+				</div>
+				<div className="phone__account">
+					<p className="phone__number">+7 (911) 404-76-97</p>
+                    { name}
+				</div>
+			</div>
+
+			<div className="menu">
+				<a href="/">
+					<div className={this.isSchedule() ? "menu__button active" : "menu__button "}>
+						<div className="menu__button__border__one"></div>
+						<div className="menu__button__border__two"></div>
+						<p>РАСПИСАНИЕ</p>
+					</div>
+				</a>
+				<a href="/films">
+					<div  className= {this.isFilms() ? "menu__button active" : "menu__button "} >
+						<div className="menu__button__border__one"></div>
+						<div className="menu__button__border__two"></div>
+						<p>ФИЛЬМЫ</p>
+					</div>
+				</a>
+				<a href="/visitors">
+					<div className= {this.isVisitors() ? "menu__button active" : "menu__button "}>
+						<div className="menu__button__border__one"></div>
+						<div className="menu__button__border__two"></div>
+                        <p>{ this.isAdmin() ? "АДМИН" : "ПОСЕТИТЕЛЯМ"}</p>
+					</div>
+				</a>
+			</div>
+            </div>
+            
+        
         return (
             <div>
                 {header}

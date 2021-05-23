@@ -13,7 +13,9 @@ public class Film {
     private String title;
     private String originTitle;
     private String description;
-    private String genre;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "film_id")
+    private List<Genre> genre;
     private String country;
     private String director;
     private Long data;
@@ -25,7 +27,7 @@ public class Film {
     public Film() {
     }
 
-    public Film(String title, String originTitle, String description, String genre, String country, String director, Long data, String duration, List<Frame> frames) {
+    public Film(String title, String originTitle, String description, List<Genre> genre, String country, String director, Long data, String duration, List<Frame> frames) {
         this.title = title;
         this.originTitle = originTitle;
         this.description = description;
@@ -69,11 +71,11 @@ public class Film {
         this.description = description;
     }
 
-    public String getGenre() {
+    public List<Genre> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<Genre> genre) {
         this.genre = genre;
     }
 

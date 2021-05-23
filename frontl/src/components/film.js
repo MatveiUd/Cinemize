@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-  
+import Footer from './footer';
+import Header from "./header"
 
 
 class film extends Component{
@@ -37,17 +38,15 @@ class film extends Component{
     } else {
       return (
       <div>
-        <h1>CINEMIZE</h1>
-
+        <Header/>
           {
             films.map(film =>
               <div key={ film.id}>
                 <h3>{film.title}</h3>
                 <h4>{film.originTitle}</h4>
-                <span>{ film.genre}</span>
+                <span>{ film.genre.map(genre => genre.genreName)}</span>
               </div>)
         }
-        
       </div>
     )}
     

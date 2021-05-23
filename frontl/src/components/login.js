@@ -1,15 +1,17 @@
 import React, { Component} from 'react'
 import { Redirect } from 'react-router';
+import logo from '../img/logo.png'
 
 
-
-
-
+function isAuth() {
+	if ("user" in localStorage) return "/lk"
+	else return null
+}
 class login extends Component{
      constructor(props) {
         super(props);
         this.state = {
-            referrer: null,
+            referrer: isAuth(),
          };
          this.auth = this.auth.bind(this);
     }
@@ -24,9 +26,9 @@ class login extends Component{
         const headers = new Headers();
         headers.set('Authorization', 'Basic ' + userPassInBase64)
 
-        const url = 'http://localhost:8080/api/test/login'
-        const test = "http://localhost:8080/user"
-        const response = await fetch(test, {
+
+        const url = "http://localhost:8080/user"
+        const response = await fetch(url, {
             method: "GET",
             headers
         })
@@ -49,24 +51,38 @@ class login extends Component{
         if (referrer) return <Redirect to={referrer} />
         else {
             return (
-            <div className="login-wrapper">
-            <h1>Please Log In</h1>
-                <form onSubmit={this.auth}>
-                <label>
-                <p>Username</p>
-                        <input type="text" name="username" />
-                    </label>
-                    <label>
-                        <p>Password</p>
-                         <input type="password" name="password" />
-                    </label>
-                <div>
-                        <button type="submit"  >Submit</button>
-                    
-                </div>
-                </form>    
+
+            <div class="container">
+                        <a href="/">
+							<img className="logo" src={ logo} alt="Картинка загружается"  property="image"/>
+						</a>
+			<form class="login__form" onSubmit={this.auth}>
+				<div class="form__inputs">
+					<h1  htmlFor="email">EMAIL</h1>
+					<input type="email" name="username"/>
+					<h1 htmlFor="password">ПАРОЛЬ</h1>
+					<input type="password" name="password"/>
+				</div>
+				<div class="buttons_login">
+					<button class="button_login" type="submit">
+						<div class="button__border__one_login">
+							<p>ВОЙТИ</p>
+						</div>
+						<div class="button__border__two_login"></div>
+					</button>	
+					<a href="/regitration">
+						<button class="button_login" type="button">
+							<div class="button__border__one_login">
+								<p>РЕГИСТРАЦИЯ</p>
+							</div>
+							<div class="button__border__two_login"></div>
+						</button>
+					</a>
+				</div>
+                    </form>
+                
             </div>
-        )    
+            )    
         }
         
         

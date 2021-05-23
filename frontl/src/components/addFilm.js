@@ -16,7 +16,10 @@ class addFilm extends Component {
         let title = e.target.elements.title.value;
         let originTitle = e.target.elements.originTitle.value
         let description = e.target.elements.description.value
-        let genre = e.target.elements.genre.value;
+        let genre = [];
+        for (let i = 0; i < e.target.elements.genre.length; i++) {
+            genre.push(e.target.elements.genre[i].value); 
+        }
         let country = e.target.elements.country.value;
         let director = e.target.elements.director.value;
         let data = e.target.elements.data.value;
@@ -37,7 +40,6 @@ class addFilm extends Component {
         formData.append('data', Date.parse(data))
         formData.append('duration', duration)
         formData.append('imagesUrl', imagesUrl)
-    
         const url = "http://localhost:8080/api/film/add"
         const headers = new Headers();
         headers.set('Authorization', 'Basic ' + localStorage.authData)
@@ -68,7 +70,8 @@ class addFilm extends Component {
                 <p>Описание</p>
                 <input type="text" name="description" />
                 <p>Жанр</p>
-                <input type="text" name="genre" />
+                        <input type="text" name="genre" />
+                        <input type="text" name="genre" />
                 <p>Страна</p>
                 <input type="text" name="country" />
                 <p>Режиссер</p>
@@ -76,7 +79,7 @@ class addFilm extends Component {
                 <p>Дата выпуска</p>
                 <input type="date" name="data" />
                 <p>Продолжительность</p>
-                <input type="time" step="1" name="duration" />
+                <input type="time" name="duration" />
                 <p>Кадры из фильма</p>
                     <input type="text" name="imageUrl" />
                     <input type="text" name="imageUrl" />
