@@ -1,0 +1,129 @@
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border: 3px #05bbb0 solid;
+  margin: 10px; /* demo only */
+}
+.custom-dropdown select {
+  border: 3px #05bbb0 solid;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: inherit;
+  padding: 0.5em;
+  padding-right: 2.5em;
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  font-family: "Montserrat", sans-serif;
+  text-indent: 0.01px;
+  color: #bda1e0;
+  text-overflow: "";
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+.big {
+  font-size: 1.2em;
+}
+
+.small {
+  font-size: 0.7em;
+}
+
+.square {
+  width: 0.7em;
+  height: 0.7em;
+  margin: 0.5em;
+  display: inline-block;
+}
+.addseans__form {
+  margin: 100px auto 200px;
+  margin-left: 0px;
+  height: 450px;
+  width: 700px;
+  display: flex;
+  position: relative;
+  margin-bottom: 300px;
+  margin-top: 20px;
+}
+
+.buttons_addseans {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form__inputs_addseans {
+  width: 450px;
+  margin-top: 30px;
+  text-align: left;
+  display: inline-block;
+}
+
+.form__inputs_addseans input {
+  text-overflow: ellipsis;
+  width: 100%;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 2px #05bbb0 solid;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: left;
+  color: #bda1e0;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form__inputs_addseans h1 {
+  width: 100%;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 200;
+}
+
+.button_addseans {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  height: 60px;
+  width: 274px;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 0px;
+}
+
+.button__border__one_addseans {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  width: 260px;
+  border: 3px #05bbb0 solid;
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+}
+
+.button__border__one_addseans p {
+  font-weight: 400;
+  font-size: 18px;
+  margin: auto;
+}
+
+.button__border__two_addseans {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40px;
+  width: 260px;
+  border: 2px #a96bf8 solid;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.button_addseans:hover .button__border__two_addseans {
+  display: block;
+}

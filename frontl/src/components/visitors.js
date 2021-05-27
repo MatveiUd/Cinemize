@@ -26,7 +26,8 @@ class Visitors extends Component{
                                 <div className="cinemize__photo3"></div>
                             </div>
                         </div>
-			        </div>
+                </div>
+                <Footer/>
                 
             </div>
         )

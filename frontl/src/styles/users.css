@@ -1,0 +1,150 @@
+.switch_roles_form {
+  margin: 100px auto 200px;
+  margin-left: 0px;
+  height: 450px;
+  width: 700px;
+  display: flex;
+  position: relative;
+  margin-bottom: 300px;
+  margin-top: 20px;
+}
+
+.buttons_switch_roles {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form__inputs_switch_roles {
+  width: 450px;
+  margin-top: 30px;
+  text-align: left;
+  display: inline-block;
+}
+
+.form__inputs_switch_roles input {
+  text-overflow: ellipsis;
+  width: 100%;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 2px #05bbb0 solid;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: left;
+  color: #bda1e0;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+label {
+  position: relative; /* to contain absolute elements */
+  padding-left: 30px; /* free space for custom checkbox */
+  cursor: pointer;
+}
+label input[type="checkbox"] {
+  position: absolute; /* prevent taking any space */
+  /* cross-browser hidingg */
+  opactiy: 0;
+  width: 0;
+  height: 0;
+}
+label span {
+  position: absolute;
+  /* position to the free space in <label> */
+  top: 0;
+  left: 0;
+  margin-left: 13px;
+  width: 20px;
+  height: 20px;
+  background-color: #ddd;
+  transition: 0.3s background-color; /* slight transition */
+}
+/* the check icon */
+label span:after {
+  content: "";
+  position: absolute;
+  display: none;
+
+  /* check icon */
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+label:hover span {
+  background-color: #ccc;
+}
+
+/**** Here's the trick ***/
+label input:checked ~ span {
+  background-color: #bda1e0;
+}
+label input:checked ~ span:after {
+  display: block;
+}
+table {
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 18px;
+  font-family: "Montserrat", sans-serif;
+  color: #ffffff;
+  border-collapse: separate;
+  border-spacing: 10px 40px;
+}
+
+.form__inputs_switch_roles h1 {
+  width: 100%;
+  color: #bda1e0;
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.button_switch_roles {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  height: 60px;
+  width: 274px;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 0px;
+}
+
+.button__border__one_switch_roles {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  width: 260px;
+  border: 3px #05bbb0 solid;
+  display: flex;
+  align-items: left;
+  justify-content: space-between;
+}
+
+.button__border__one_switch_roles p {
+  font-weight: 400;
+  font-size: 18px;
+  margin: auto;
+}
+
+.button__border__two_switch_roles {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40px;
+  width: 260px;
+  border: 2px #a96bf8 solid;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.button_switch_roles:hover .button__border__two_switch_roles {
+  display: block;
+}

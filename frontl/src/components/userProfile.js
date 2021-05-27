@@ -60,7 +60,7 @@ class UserProfile extends Component{
 		let userPassInBase64 = btoa(username + ':' + password);
 		
 		if (e.target.elements.newpassword.value === e.target.elements.newpasswordagain.value) {
-			userPassInBase64 = btoa(username + ':' + e.target.elements.newpassword.value);
+			let userPassInBase64New = btoa(username + ':' + e.target.elements.newpassword.value);
 			const headers = new Headers();
 			headers.set('Authorization', 'Basic ' + userPassInBase64)
 			let formData = new FormData()
@@ -74,7 +74,7 @@ class UserProfile extends Component{
 			.then(response => {
 				if (response.ok) {
 					
-					localStorage.setItem("authData", userPassInBase64)
+					localStorage.setItem("authData", userPassInBase64New)
 					alert("Пароль успешно изменен")
 					
 				} else if (response.status === 401) {
@@ -195,7 +195,7 @@ class UserProfile extends Component{
 					{
 						this.state.user.orders.map(order => (
 						<div key={order.id} className="session">
-							<div><img src={order.tickets[0].sessionId.film.frames[0].imageUrl}/></div>
+							<div><img src={order.tickets[0].sessionId.film.frames[1].imageUrl} alt="Картинка загружается"  property="image"/></div>
 										
 								<div className="session__info">
 									<p className="film__name">{ order.tickets[0].sessionId.film.title}</p>

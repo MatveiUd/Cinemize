@@ -1,8 +1,6 @@
 package course.cinemize.controller;
 
-import course.cinemize.models.Film;
-import course.cinemize.models.Frame;
-import course.cinemize.models.Genre;
+import course.cinemize.models.*;
 import course.cinemize.repo.FilmRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +29,8 @@ public class FilmController {
                         @RequestParam String originTitle,
                         @RequestParam String description,
                         @RequestParam List<String> genre,
-                        @RequestParam String country,
-                        @RequestParam String director,
+                        @RequestParam List<String> country,
+                        @RequestParam List<String> director,
                         @RequestParam Long data,
                         @RequestParam String duration,
                         @RequestParam List<String> imagesUrl){
@@ -40,6 +38,15 @@ public class FilmController {
         for (int i = 0;i<genre.size();i++){
             genres.add(new Genre(genre.get(i)));
         }
+        ArrayList<Country> countries = new ArrayList<>();
+        for (int i = 0;i<country.size();i++){
+            countries.add(new Country(country.get(i)));
+        }
+        ArrayList<Director> directors = new ArrayList<>();
+        for (int i = 0;i<director.size();i++){
+            directors.add(new Director(director.get(i)));
+        }
+
         ArrayList<Frame> frames= new ArrayList<Frame>();
         for(int i= 0;i<imagesUrl.size();i++){
             if(i == 0 ){
@@ -49,6 +56,6 @@ public class FilmController {
             }
 
         }
-        filmRepo.save(new Film(title,originTitle,description,genres,country,director,data,duration,frames));
+        filmRepo.save(new Film(title,originTitle,description,genres,countries,directors,data,duration,frames));
     }
 }

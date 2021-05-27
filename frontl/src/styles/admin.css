@@ -4,10 +4,21 @@
 .film__panel {
   width: 1140px;
   margin-top: 80px;
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
 }
-
+.film__edit__title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 37px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
 .added__film {
   width: 360px;
   margin-bottom: 86px;
@@ -65,7 +76,7 @@
 .schedule__edit__title {
   font-family: Montserrat;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 30px;
   line-height: 37px;
   color: #ffffff;
@@ -107,6 +118,7 @@
 .schedule__day__row {
   width: 100%;
   display: flex;
+  margin-bottom: 20px;
 }
 
 .schedule__day__row .add__new__film {

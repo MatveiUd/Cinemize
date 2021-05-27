@@ -37,16 +37,22 @@ class film extends Component{
         return <div>Необходимо войти в систему <a href="/login">войти</a> </div>;
     } else {
       return (
-      <div>
+      <div className="container">
         <Header/>
           {
             films.map(film =>
-              <div key={ film.id}>
-                <h3>{film.title}</h3>
-                <h4>{film.originTitle}</h4>
-                <span>{ film.genre.map(genre => genre.genreName)}</span>
-              </div>)
-        }
+              
+              <div  key={ film.id} class="film__card">
+                <img src={film.frames[0].imageUrl} alt="Картинка загружается"  property="image"/>
+                <h1>{film.title}</h1>
+                <p>{film.description}</p>
+                
+                
+              </div>
+            )
+          }
+    
+          <Footer/>
       </div>
     )}
     

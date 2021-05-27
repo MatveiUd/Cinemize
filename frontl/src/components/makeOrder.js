@@ -1,6 +1,7 @@
-import { Component, useReducer } from "react";
+import { Component } from "react";
 
 import topPanelImage from "../img/midsommarTopPannel.png"
+import Footer from "./footer";
 import Header from "./header"
 
 function isAuth() {
@@ -52,9 +53,6 @@ class MakeOrder extends Component{
 				
 				})
 	
-			
-			
-			
       	},
       (error) => {
         this.setState({error});
@@ -63,14 +61,14 @@ class MakeOrder extends Component{
 		
 	}
 	inputDiscountStatus(value) {
-		if (value == "" || value == "0") {
+		if (value === "" || value === "0") {
 			return true
 		} else return false
 	}
 	inputDiscount(e) {
 		
-		if (e.target.className == "card__number__input") this.setState({cardInput: e.target.value})
-		else if (e.target.className == "point__input") this.setState({pointsInput: e.target.value})
+		if (e.target.className === "card__number__input") this.setState({cardInput: e.target.value})
+		else if (e.target.className === "point__input") this.setState({pointsInput: e.target.value})
 		
 	}
 	sortPlace(session) {
@@ -113,27 +111,27 @@ class MakeOrder extends Component{
 		e.preventDefault()
 		let points = 0;
 		let usedPoints = 0;
-		if(document.getElementsByClassName("point__input")[0].value != "") usedPoints = parseInt(document.getElementsByClassName("point__input")[0].value)
+		if(document.getElementsByClassName("point__input")[0].value !== "") usedPoints = parseInt(document.getElementsByClassName("point__input")[0].value)
 		if(isAuthBoolean()) points = this.state.user.score
 		console.log(parseInt(usedPoints, points))
-		if (document.getElementsByClassName("email__input")[0].value != "") {
+		if (document.getElementsByClassName("email__input")[0].value !== "") {
 			if (usedPoints <= points) {
 			let placeId = []
 			for (let i = 0; i < this.state.selectedPlaces.length;i++) placeId.push(this.state.selectedPlaces[i].id)
 			
-			let data = {
-				placeId: placeId,
-				cost: this.state.session[0].cost,
-				usedScore: document.getElementsByClassName("point__input")[0].value,
-				bonusCardNumber: document.getElementsByClassName("card__number__input")[0].value,
-				sessionId: this.state.session[0].id,
-				email: document.getElementsByClassName("email__input")[0].value
+			// let data = {
+			// 	placeId: placeId,
+			// 	cost: this.state.cost,
+			// 	usedScore: document.getElementsByClassName("point__input")[0].value,
+			// 	bonusCardNumber: document.getElementsByClassName("card__number__input")[0].value,
+			// 	sessionId: this.state.session[0].id,
+			// 	email: document.getElementsByClassName("email__input")[0].value
 
-			}
-			console.log(data);
+			// }
+			// console.log(data);
 			let formData = new FormData();
 			formData.append('placeId', placeId);
-			formData.append('cost', this.state.session[0].cost);
+			formData.append('cost', this.state.cost);
 			formData.append('usedScore', usedPoints)
 			formData.append('bonusCardNumber',  document.getElementsByClassName("card__number__input")[0].value)
 			formData.append('sessionId',  this.state.session[0].id)
@@ -199,7 +197,7 @@ class MakeOrder extends Component{
 						
 									<div className="top__pannel">
 										<div className="top__pannel__image__container">
-												<img src={topPanelImage} />
+												<img className="top__pannel__image" src={session.film.frames[0].imageUrl} alt="Картинка загружается"  property="image"/>
 										</div>	
 										<div className="top__pannel__data">
 											<div>
@@ -211,7 +209,7 @@ class MakeOrder extends Component{
 										</div>
 									</div>
 									<div className="screen__container">
-										<img className="screen"/>	
+										<img className="screen" alt="Картинка загружается"  property="image"/>	
 									</div>
 									<div className="center__pannel">
 
@@ -310,8 +308,8 @@ class MakeOrder extends Component{
 								</div>
 							))
 					}
-					
-					</div>
+					<Footer/>	
+				</div>
 			)
 		} else return (<h1>Загрузочка</h1>)
         

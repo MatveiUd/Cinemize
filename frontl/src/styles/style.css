@@ -187,9 +187,13 @@ a {
 }
 
 .buy__button__border__one p {
-  font-weight: 600;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+
   font-size: 40px;
-  margin: auto;
+  line-height: 134px;
+  text-align: center;
+  width: 100%;
 }
 
 .buy__button__border__two {
