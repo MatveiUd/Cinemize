@@ -2,6 +2,7 @@ package course.cinemize.controller;
 
 import course.cinemize.models.*;
 import course.cinemize.repo.*;
+import course.cinemize.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class OrderController {
     UserRepository userRepository;
     @Autowired
     BonusCardRepo bonusCardRepo;
+    @Autowired
+    MailService mailService;
     @GetMapping
     public List<Order> getOrders(){
         return orderRepo.findAll();
@@ -101,13 +104,31 @@ public class OrderController {
             userRepository.save(user);
         }
 
-
+        ArrayList<Place> places = new ArrayList<>();
         for(int i = 0; i< order.getTickets().size();i++){
             Place place = placeRepo.findById(order.getTickets().get(i).getPlaceId()).orElse(new Place());
             place.setFree(false);
             placeRepo.save(place);
+            places.add(place);
         }
         order.setPadFor(true);
+        String message = "Благодарим за приобретение билета в нашем онлайн сервисе\n";
+        if(places.size() == 1){
+            message += String.format("Ваше место:\nРяд:" +
+                            places.get(0).getRow() +
+                    " место:" +
+                    places.get(0).getNumber());
+        }else {
+            message += String.format("Ваши места:\n");
+            for(int i = 0 ;i< places.size();i++){
+                message += String.format("Ряд:" +
+                        places.get(i).getRow() +
+                        " место:" +
+                        places.get(i).getNumber() + "\n");
+            }
+        }
+
+        mailService.send(order.getUserEmail(),"Кассовый чек",message);
         orderRepo.save(order);
     }
 }

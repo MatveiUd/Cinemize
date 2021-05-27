@@ -2,9 +2,6 @@ import React,{Component} from 'react'
 import Footer from './footer'
 
 import Header from './header'
-import MakeOrder from './makeOrder'
-
-import Modal from './modal'
 
 function isAuth() {
     if ("user" in localStorage) {
@@ -43,12 +40,13 @@ class main extends Component{
 				session: result,
 				filterSession: filterSession
 			})
-			
+			console.log(result);
       	},
       (error) => {
         this.setState({error});
       }
-    );		
+		);
+		
 	}
 	
 	handleClick(e,session) {
@@ -142,9 +140,9 @@ class main extends Component{
 							
 						<h2>{(new Date(session.date)).toLocaleString("ru", {month: 'long', day: 'numeric', hour: 'numeric',minute: 'numeric'})}</h2>
 						<p>{session.film.originTitle} ({ new Date(session.film.data).getFullYear()})</p>
-						<p>Режиссер: { session.film.director}</p>
+						<p>Режиссер: { session.film.director.map(director => director.name)}</p>
 						<p>Жанр: { session.film.genre.map(genre => genre.genreName + " ")}</p>
-						<p>{session.film.country} { session.film.duration}</p>
+						<p>{session.film.country.map(country => country.name + " ")} { session.film.duration}</p>
 							<a href={`/buy?id=${session.id}`}  >
 						<div className="buy__button">
 							<div className="buy__button__border__one">
@@ -157,13 +155,13 @@ class main extends Component{
 					</div>
 					)
 				}
-			{/* <MakeOrder active={this.state.modalActive} setActive={this.handleClick} session={ this.state.activeSession}/> */}
-			{/* <Modal active={this.state.modalActive} setActive={this.handleClick} session={ this.state.activeSession}/> */}
+
+				<Footer/>
 		</div>
         )
          
     }
     
 }
-//onClick={(e) => this.handleClick(e,session)}
+
 export default main;

@@ -71,6 +71,7 @@ class Regiser extends Component{
 					</button>	
 				</div>
 				</form>
+				<Footer/>
             </div>
             
         )

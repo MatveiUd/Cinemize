@@ -7,10 +7,10 @@ class Users extends Component{
             users: [],
             user: null,
             roleAdmin: false,
-            roleUser: false,
-            error:null
+            error: null,
+            changedUsers: []
         };
-        this.getUser = this.getUser.bind(this)
+        
         this.changeCheckbox = this.changeCheckbox.bind(this)
         this.saveChange = this.saveChange.bind(this)
     }
@@ -23,47 +23,27 @@ class Users extends Component{
             }
         } else return false     
     }
-    getUser(e) {
-        let url = `http://localhost:8080/user/${e.target.id}`
-        const headers = new Headers();
-        headers.set('Authorization', 'Basic ' + localStorage.authData)
-        fetch(url, {headers})
-        .then((response) => response.json())
-            .then((result) => {
-                this.setState({ user: result })
-                
-                if (result.roles.includes("USER")) {
-                    console.log("user")
-                    this.setState({roleUser: true})
-                }
-                if(result.roles.includes("ADMIN")){
-                    this.setState({roleAdmin: true})
-                }
-            },
-            (error) => {
-                this.setState({
-                error
-                });
-            }
-        );
     
-        
-    }
     saveChange(e) {
         e.preventDefault();
         let url = "http://localhost:8080/user/save"
         const headers = new Headers();
         headers.set('Authorization', 'Basic ' + localStorage.authData)
-        console.log(e.target.elements.roleAdmin.checked)
-        let formData = new FormData();
-        formData.append('isAdmin', e.target.elements.roleAdmin.checked)
-        formData.append('isUser', e.target.elements.roleUser.checked)
-        formData.append('userId', this.state.user.id)
-        fetch(url, {
+        for (let i = 0; i < this.state.changedUsers.length; i++) {
+            let usr = this.state.users.find(user => user.id ==  this.state.changedUsers[i])
+            let isAdmin = usr.isAdmin;
+            let isUser = !usr.isAdmin;
+            let formData = new FormData();
+            formData.append('isAdmin', isAdmin)
+            formData.append('isUser', isUser)
+            formData.append('userId',usr.id)
+            fetch(url, {
             method: "POST",
             headers,
             body: formData
         })
+        }
+        alert("Роли изменены")
     }
     componentDidMount() {
 
@@ -75,9 +55,19 @@ class Users extends Component{
                 headers
             })
             .then((response) => response.json())
-            .then((result) => {
+                .then((result) => {
+                    let users = result
+                    
+                    for (let i = 0; i < result.length; i++){
+                    
+                        if (result[i].roles[0] == "ADMIN") {
+                            users[i]["isAdmin"] = true
+                        } else users[i]["isAdmin"] = false
+                        
+                    }
+                   
                 this.setState({
-                users: result
+                users: users
                 })
             },
             (error) => {
@@ -90,61 +80,66 @@ class Users extends Component{
         
     }
     
-    roleCheck(role, roleArray) {
-        if (roleArray.includes(role)) {
-            return true
-        } else return false
-    }
     changeCheckbox(e) {
-       this.setState({[e.target.name]:e.target.checked})
+        let changedUsers =this.state.changedUsers
+        let users = this.state.users
+        for (let i = 0; i < users.length; i++){
+            if (this.state.users[i].id == e.target.id) {
+                console.log(users[i].id);
+               console.log(changedUsers.indexOf(users[i].id));
+                if (changedUsers.indexOf(users[i].id) != -1) {
+                    changedUsers.splice(changedUsers.indexOf(users[i].id),1)
+                } else changedUsers.push(parseInt(users[i].id))
+                users[i].isAdmin = !users[i].isAdmin
+            }
+        }
+        console.log(changedUsers);
+       this.setState({users: users})
     }
     render() {
         const { users, user ,error } = this.state
         if (error) {
             return (<div>Ошибка</div>)
         } else {
-            let userView
-            if (user != null) {
-                userView =
-                    <form onSubmit={this.saveChange }>
-                    <label>{user.username}</label>
-                    <div>
-                        <label><input type="checkbox" name="roleUser" checked={this.state.roleUser} onChange={this.changeCheckbox}/>USER</label>
-                        <label><input type="checkbox" name="roleAdmin" checked={ this.state.roleAdmin} onChange={this.changeCheckbox} />ADMIN</label>
-                        <label><button type="submit">Сохрвнить</button></label>
-                    </div>
-                    </form>
-            } else {
-                userView = <div>Выберите пользователя</div>
-            }
+            
             if (this.isAdmin) {
                 return (
-                    <div>
-                        <table>
-                        <thead>
-                            <tr>
-                                <th>Usernmae</th>
-                                <th>Role</th>
-                                <th></th>
-
-                            </tr>
-                        </thead>
-                            <tbody>
-                                
-                            {
-                                 users.map((usr) =>
-                                     <tr key={usr.id }>
-                                        <td >{usr.username}</td>
-                                        <td >{usr.roles}</td>
-                                         <td ><button id={usr.id} onClick={ this.getUser}>Изменить</button></td>
-                                    </tr>  
-                                )
-                            }
-                        </tbody>
-                        
-                        </table>
-                        {userView}
-                    </div>
+                    <div class="container">
+					<form class="form__inputs_switch_roles" onSubmit={this.saveChange}>
+                       <table>
+							<tr>
+								<th>Логин</th>
+								<th>Роль</th>
+                                </tr>
+                                {
+                                    users.map(user => (
+                                        <tr key={user.id}>
+                                            <td>{ user.username}</td>
+                                            <td>
+                                            <label><input id={user.id} type="checkbox" name="roleAdmin" checked={ user.isAdmin} onChange={this.changeCheckbox}/>
+                                            <span></span>
+                                            </label>
+                                            </td>
+                                            <td>
+                                            <h1 htmlFor="admin">ADMIN</h1>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+							
+						</table>
+						<button class="button_switch_roles" type="submit" >
+							<div class="button__border__one_switch_roles">
+								<p>СОХРАНИТЬ</p>
+							</div>
+							<div class="button__border__two_switch_roles"></div>
+						</button>
+					</form>
+					<div class="form__inputs_switch_roles">
+					
+					</div>
+                   
+		        </div>
                     
                     
                 )

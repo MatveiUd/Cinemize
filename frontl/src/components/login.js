@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import { Redirect } from 'react-router';
 import logo from '../img/logo.png'
+import Footer from './footer';
 
 
 function isAuth() {
@@ -80,7 +81,7 @@ class login extends Component{
 					</a>
 				</div>
                     </form>
-                
+                <Footer/>
             </div>
             )    
         }

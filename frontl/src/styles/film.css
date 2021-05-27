@@ -1,0 +1,29 @@
+.film__card {
+  margin-top: 100px;
+  position: relative;
+  color: #ffffff;
+}
+
+.film__card h1 {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.film__card h2 {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.film__card p {
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.film__card img {
+  width: 100%;
+  height: auto;
+}

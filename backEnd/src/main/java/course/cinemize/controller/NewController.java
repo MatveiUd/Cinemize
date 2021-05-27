@@ -2,10 +2,8 @@ package course.cinemize.controller;
 
 
 
-import course.cinemize.models.Hall;
-import course.cinemize.models.Place;
-import course.cinemize.models.Session;
-import course.cinemize.models.UserModel;
+import course.cinemize.models.*;
+import course.cinemize.repo.FilmRepo;
 import course.cinemize.repo.HallRepo;
 import course.cinemize.repo.PlaceRepo;
 import course.cinemize.repo.SessionRepo;
@@ -30,24 +28,22 @@ public class NewController {
     private SessionRepo sessionRepo;
     @Autowired
     private PlaceRepo placeRepo;
-
+    @Autowired
+    private FilmRepo filmRepo;
     private int counter = 4;
     private List<Map<String,String>> films = new ArrayList<Map<String,String>>(){{
         add(new HashMap<String,String>(){{put("id", "1"); put("text","First film");}});
         add(new HashMap<String,String>(){{put("id", "2"); put("text","Second film");}});
         add(new HashMap<String,String>(){{put("id", "3"); put("text","Third film");}});
     }};
-    @GetMapping("addhall")
-    public List<Hall> addHall(){
-//        ArrayList<Place> placeList = new ArrayList<Place>();
-//        ArrayList<Hall> hallList = new ArrayList<>();
-//        for(int i = 0;i<5;i++){
-//            for(int j = 0;j<5;j++){
-//                placeList.add(new Place(i,j,true));
-//            }
-//        }
-//        hallRepo.save(new Hall(placeList, 3,true));
-        return hallRepo.findAll();
+    @GetMapping("find")
+    public List<Film> addHall(){
+        Film film = filmRepo.findByTitle("Бегущий по лезвию 2049");
+        Film film2 = filmRepo.findById(935L).orElseThrow();
+        ArrayList<Film> films= new ArrayList<>();
+        films.add(film);
+        films.add(film2);
+        return films;
     }
 
     @GetMapping("user")

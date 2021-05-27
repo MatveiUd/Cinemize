@@ -72,28 +72,37 @@ class addSession extends Component{
     render() {
         const { films } = this.state
         return (
-            <div>
-                <form onSubmit={this.sendInformation}>
-                    <p>Фильм</p>
-                    <select name="title" >
-                    {
-                        films.map(film =>
-                            <option key={ film.id}>{ film.title}</option>)
-                    }
-                    </select>
-                    <p>Зал</p>
-                    <select name="hallNumber">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                    <p>Время</p>
-                    <input name="date" type="datetime-local" />
-                <p>Стоимость</p>
-                <input type="text" name="cost" />
-                     <button type="submit">Добавить сеанс</button>
-                </form>
+            <div className="container">
                 
+                <form onSubmit={this.sendInformation} class="form__inputs_addseans">
+                    <h1 for="title">Фильм</h1>
+                    <span class="custom-dropdown">
+                        <select name="title" required>   	
+                        {
+                                    films.map(film =>
+                                        <option key={ film.id}>{ film.title}</option>)
+                                }
+                        </select>
+                    </span>
+                    <h1 for="hall">Зал</h1>
+                    <span class="custom-dropdown">
+                        <select name="hallNumber" required>   
+                            <option>1</option>
+                            <option>2</option>  
+                            <option>3</option>
+                        </select>
+                    </span>
+                    <h1>Время</h1>
+                    <input name="date" type="datetime-local" required/>
+                        <h1>Стоимость</h1>
+                        <input type="text" name="cost" required/>
+                            <button class="button_addseans" type="submit">
+                                    <div class="button__border__one_addseans">
+                                        <p>Добавить сеанс</p>
+                        </div>
+                        <div class="button__border__two_addseans"></div>
+                            </button>
+                </form>
             </div>
         )
     }
