@@ -8,7 +8,16 @@ class Admin extends Component{
         this.state = {
             error: null,
             films: [],
-            sessions: []
+            sessions: [],
+            filterSessions: {
+                monday: [],
+                tuesday: [],
+                wednesday: [],
+                thursday: [],
+                friday: [],
+                saturday: [],
+                sunday: []
+            }
             };
 
     }
@@ -33,13 +42,59 @@ class Admin extends Component{
         const urlSession = "http://localhost:8080/api/session"
 		fetch(urlSession)
       	.then((response) => response.json())
-			.then((result) => {
-				
+            .then((result) => {
+            let  filterSessions = {
+                monday: [],
+                tuesday: [],
+                wednesday: [],
+                thursday: [],
+                friday: [],
+                saturday: [],
+                sunday: []
+            }
+                
+                let buffDate = new Date()
+                let buffDate1 = new Date()
+                //buffDate.setDate(buffDate.getDate() - 1)
+                
+                console.log((buffDate.setDate((new Date()).getHours())) - buffDate1.setDate((new Date()).getHours()))
+                console.log(buffDate);
+                for (let i = 0; i < result.length; i++){
+                    
+                    console.log(buffDate < new Date(result[i].date));
+                    switch ((new Date(result[i].date)).toLocaleString("en", { weekday: "long" })) {
+                        case "Monday":
+                            filterSessions.monday.push(result[i])
+                            break;
+                        case "Tuesday":
+                            filterSessions.tuesday.push(result[i])
+                            break;
+                        case "Wednesday":
+                            filterSessions.wednesday.push(result[i])
+                            break;
+                        case "Thursday":
+                            filterSessions.thursday.push(result[i])
+                            break;
+                        case "Friday":
+                            filterSessions.friday.push(result[i])
+                            break;
+                        case "Saturday":
+                            filterSessions.saturday.push(result[i])
+                            break;
+                        case "Sunday":
+                            filterSessions.sunday.push(result[i])
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                }
+                
 			this.setState({
 				sessions: result,
-				
+				filterSessions: filterSessions
 			})
-			console.log(result);
+			console.log(this.state.filterSessions);
       	},
       (error) => {
         this.setState({error});
@@ -72,7 +127,8 @@ class Admin extends Component{
 			
 			<div class="schedule__edit">
 				<h2 class="schedule__edit__title">СФОРМИРОВАТЬ РАСПИСАНИЕ</h2>
-				<div class="schedule__day">
+                    <div class="schedule__day">
+                    <h3 class="schedule__day__title">01.01, Понедельник</h3>
 					<div class="schedule__day__row">
                             {
                                 this.state.sessions.map(session => (
@@ -86,13 +142,7 @@ class Admin extends Component{
                               ))  
                         }
 						
-						<div class="schedule__day__session">
-							<img class="session__image"/>
-							<div class="session__name__time">
-								<p class="schedule__session__name">СОЛНЦЕСТОЯНИЕ</p>
-								<p class="schedule__session__time">11:00</p>
-							</div>
-						</div>
+						
 						<div class="add__new__film">
 							<div class="plus">
 							</div>

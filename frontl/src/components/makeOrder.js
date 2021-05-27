@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useReducer } from "react";
 
 import topPanelImage from "../img/midsommarTopPannel.png"
 import Header from "./header"
@@ -111,18 +111,16 @@ class MakeOrder extends Component{
 	}
 	buyTicket(e) {
 		e.preventDefault()
-		
-		if (parseInt(document.getElementsByClassName("point__input")[0].value) < this.state.user.score) {
+		let points = 0;
+		let usedPoints = 0;
+		if(document.getElementsByClassName("point__input")[0].value != "") usedPoints = parseInt(document.getElementsByClassName("point__input")[0].value)
+		if(isAuthBoolean()) points = this.state.user.score
+		console.log(parseInt(usedPoints, points))
+		if (document.getElementsByClassName("email__input")[0].value != "") {
+			if (usedPoints <= points) {
 			let placeId = []
 			for (let i = 0; i < this.state.selectedPlaces.length;i++) placeId.push(this.state.selectedPlaces[i].id)
-			// let checkboxes = e.target.elements.place
-			// let placeId = []
-			// for (let i = 0; i < checkboxes.length; i++){
-			//     if (checkboxes[i].checked) {
-			//         console.log(checkboxes[i].id)
-			//         placeId.push(checkboxes[i].id)
-			//     }
-			// }
+			
 			let data = {
 				placeId: placeId,
 				cost: this.state.session[0].cost,
@@ -136,7 +134,7 @@ class MakeOrder extends Component{
 			let formData = new FormData();
 			formData.append('placeId', placeId);
 			formData.append('cost', this.state.session[0].cost);
-			formData.append('usedScore', document.getElementsByClassName("point__input")[0].value)
+			formData.append('usedScore', usedPoints)
 			formData.append('bonusCardNumber',  document.getElementsByClassName("card__number__input")[0].value)
 			formData.append('sessionId',  this.state.session[0].id)
 			formData.append('email',document.getElementsByClassName("email__input")[0].value)
@@ -160,6 +158,8 @@ class MakeOrder extends Component{
 			    }
 			})
 		}else alert("Многовато баллов, не думаете?")
+		} else alert("Введите e-mail")
+		
 		
     }
 	handleChange(e) {
@@ -296,7 +296,7 @@ class MakeOrder extends Component{
 												</div>
 												<div className="bottom__input__row">
 													<h2>EMAIL</h2>
-													<input type="text" className="email__input" value={isAuthBoolean() ? this.state.user.username : ""} placeholder="example@mail.com" />
+													<input type="text" required className="email__input" defaultValue={isAuthBoolean() ? this.state.user.username : ""}  placeholder="example@mail.com" />
 												</div>
 											</div>
 										</div>
