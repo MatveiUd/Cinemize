@@ -51,12 +51,22 @@ public class LoginController {
         mailService.send(email,"Благодрим за регистрацию",message);
 
         user = new UserModel(name,birthdate,phoneNumber,email,bonusCardNumber ,BCrypt.hashpw(password,BCrypt.gensalt()),0);
-        user.setRoles(Collections.singleton(Role.ADMIN));
+        user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
 
         BonusCard bonusCard = new BonusCard(bonusCardNumber,0);
         bonusCardRepo.save(bonusCard);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/changepass")
+    public ResponseEntity<String> changePass(@RequestParam String password,Principal principalUser){
+        UserModel user  = userRepository.findUserByUsername(principalUser.getName());
+        if (user != null){
+            user.setPassword(BCrypt.hashpw(password,BCrypt.gensalt()));
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        }else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
     }
     public String cardNumberGenerator(){
         String number = "";

@@ -28,7 +28,7 @@ class main extends Component{
         } else return false
     }
     isVisitors() {
-        if (window.location.pathname === '/visitors') {
+        if (window.location.pathname === '/visitors' || window.location.pathname === '/admin') {
             
             return true
         } else return false
@@ -81,7 +81,7 @@ class main extends Component{
 						<p>ФИЛЬМЫ</p>
 					</div>
 				</a>
-				<a href="/visitors">
+                <a href={  this.isAdmin() ? "/admin" : "/visitors"}>
 					<div className= {this.isVisitors() ? "menu__button active" : "menu__button "}>
 						<div className="menu__button__border__one"></div>
 						<div className="menu__button__border__two"></div>

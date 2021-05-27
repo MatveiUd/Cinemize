@@ -28,6 +28,10 @@ public class SessionController {
     public List<Session> sessionList(){
         return sessionRepo.findAll();
     }
+    @GetMapping("{session}")
+    public Session getSession(@PathVariable Session session){
+       return session;
+    }
     @GetMapping("/add")
     public Map<String,List> filmAndHall(){
         Map<String,List> sessionData = new HashMap<>();

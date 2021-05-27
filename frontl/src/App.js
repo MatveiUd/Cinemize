@@ -11,7 +11,8 @@ import AddSession from "./components/addSession"
 import Register from "./components/register"
 import Visitors from "./components/visitors"
 import Footer from './components/footer'
-
+import MakeOrder from './components/makeOrder'
+import Admin from './components/adminPanel'
 
 import './styles/style.css'
 import './styles/reset.css'
@@ -19,7 +20,8 @@ import "./styles/login.css"
 import "./styles/newAcc.css"
 import "./styles/profile.css"
 import './styles/visitors.css'
-
+import './styles/makeOrders.css'
+import './styles/admin.css'
 
 class App extends Component{
 
@@ -37,6 +39,8 @@ class App extends Component{
         <Route path="/addSession" component={AddSession} />
         <Route path="/regitration" component={Register} />
         <Route path="/visitors" component={Visitors} />
+        <Route path="/buy" component={MakeOrder} />
+        <Route path="/admin" component={Admin}/>
         <Footer/>
       </BrowserRouter>
     )

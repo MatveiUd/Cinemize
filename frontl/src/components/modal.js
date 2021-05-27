@@ -17,6 +17,7 @@ class Modal extends Component{
     }
     buyTicket(e,cost,sessionId) {
         e.preventDefault()
+        
         let checkboxes = e.target.elements.place
         let placeId = []
         for (let i = 0; i < checkboxes.length; i++){
@@ -65,29 +66,61 @@ class Modal extends Component{
         
         return (
             <div>
-                {this.props.active &&(<div className="modal">
+                {this.props.active && (
+                    <div className="modal">
                     <div className="modal-body">
                         <h1>Покупка билетов</h1>
                         <h3>Зал: {this.props.session.hall.number }</h3>
                         <p>{this.props.session.cost}</p>
-                        <form onSubmit={(e) => this.buyTicket(e,this.props.session.cost,this.props.session.id)}>
-
                         
-                            {
+                                <form class="places__container" onSubmit={(e) => this.buyTicket(e, this.props.session.cost, this.props.session.id)}>
+                                
+                                {
+                                    this.props.session.sortPlaces.map((row,index) => (
+                                        <div key={index} class="places__row">
+                                            {
+                                                row.map(place => (
+                                                    <div key={place.id} class="checkbox__holder">
+                                                        <input id={place.id}
+                                                            
+                                                            name="place"
+                                                            type="checkbox"
+                                                            className={place.free ? "place" : "place__locked"}
+                                                            
+                                                            disabled={place.free ? false : true}
+                                                            onChange={this.handleChange} />
+                        
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    ))
+                                }
+                                <p>{ this.state.cost}</p>
+                                <input name="email" defaultValue={getUserEmail()}></input>
+                                <input type="submit" ></input>
+                                </form>
+                                
+
+
+
+
+
+                            {/* {
                             
                                 this.props.session.sortPlaces.map(place =>
-                                
-                                    <div key={place.id}>
-                                    <input id={place.id} name="place" type="checkbox" disabled={place.free ? false : true} onChange={this.handleChange }/>
-                                    <label style={{ color: place.free ? "blue" : "red" }}>ряд:{place.row + 1} место:{place.number + 1}</label><br />
-                                    </div>
+                                    
+                                    place.map(el => (
+                                        <div key={el.id}>
+                                        <input id={el.id} name="place" type="checkbox" disabled={el.free ? false : true} onChange={this.handleChange }/>
+                                        <label style={{ color: el.free ? "blue" : "red" }}>ряд:{el.row } место:{el.number }</label><br />
+                                        </div>
+                                    ))
                                 
                                 )
-                            }
-                            <p>{ this.state.cost}</p>
-                            <input name="email" defaultValue={getUserEmail()}></input>
-                            <input type="submit" ></input>
-                        </form>
+                            } */}
+                            
+                        
                         <button onClick={  this.clearCost } >Закрыть окно</button>
                         <button    >Купить билет  </button>
                     </div>

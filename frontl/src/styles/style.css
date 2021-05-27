@@ -273,3 +273,48 @@ a {
 .login__button:hover img {
   content: url("../img/login_hover.svg");
 }
+.example_free {
+  height: 30px;
+  width: 30px;
+  background-color: #d5b5fd;
+}
+.example_occupied {
+  height: 30px;
+  width: 30px;
+  background-color: #8874a0;
+}
+.places__row {
+  white-space: nowrap;
+}
+.places__row div {
+  display: inline-block;
+}
+/* чекбоксы */
+.checkbox__holder {
+  height: 60px;
+  width: 60px;
+  display: flex;
+}
+
+.place {
+  display: block;
+  margin: auto;
+  -webkit-appearance: none;
+  height: 60px;
+  width: 60px;
+  background-color: #d5b5fd;
+}
+
+.place:checked {
+  -webkit-appearance: none;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+}
+
+.place__locked {
+  -webkit-appearance: none;
+  height: 50px;
+  width: 50px;
+  background-color: #8874a0;
+}

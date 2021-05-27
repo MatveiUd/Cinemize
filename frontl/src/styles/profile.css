@@ -63,7 +63,11 @@
   display: flex;
   width: 760px;
 }
-
+.profile__form,
+.password__changing {
+  display: flex;
+  margin-bottom: 100px;
+}
 .points p {
   display: block;
   font-size: 72px;
@@ -238,4 +242,16 @@
 
 .logout__button:hover img {
   content: url("../img/logout_hover.svg");
+}
+.password__changing {
+  margin-bottom: 100px;
+}
+
+.password__changing .form__inputs,
+.password__changing .form__inputs .input__line {
+  width: 100%;
+}
+
+.password__changing .form__inputs .input__line {
+  margin-bottom: 0;
 }

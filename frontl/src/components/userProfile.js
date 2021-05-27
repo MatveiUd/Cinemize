@@ -19,6 +19,7 @@ class UserProfile extends Component{
 		this.state = {
 			referrer: isAuth(),
 			user: getUser(),
+			isChange: false
 		}
         
 		this.logout = this.logout.bind(this)
@@ -37,7 +38,7 @@ class UserProfile extends Component{
 			.then(response => response.json())
 			.then(result => {			
 				this.setState({ user: result })
-				console.log(result);
+				
 			})
 	}
 	logout(e) {
@@ -47,16 +48,52 @@ class UserProfile extends Component{
 	}
 	say(e) {
 		e.preventDefault()
-		console.log(this.state.user)
+		this.setState({isChange: !this.state.isChange})
+		
+	}
+	changePassword(e) {
+		e.preventDefault()
+		
+		let username = e.target.elements.email.value
+		let password = e.target.elements.oldpassword.value
+		
+		let userPassInBase64 = btoa(username + ':' + password);
+		
+		if (e.target.elements.newpassword.value === e.target.elements.newpasswordagain.value) {
+			userPassInBase64 = btoa(username + ':' + e.target.elements.newpassword.value);
+			const headers = new Headers();
+			headers.set('Authorization', 'Basic ' + userPassInBase64)
+			let formData = new FormData()
+			formData.append("password", e.target.elements.newpassword.value)
+			const url = "http://localhost:8080/changepass"
+        	fetch(url, {
+				method: "POST",
+				body: formData,
+				headers
+        	})
+			.then(response => {
+				if (response.ok) {
+					
+					localStorage.setItem("authData", userPassInBase64)
+					alert("Пароль успешно изменен")
+					
+				} else if (response.status === 401) {
+					alert("Неверный пароль")
+				}
+			})
+		} else alert("Пароли не совпадают" )
+		
+			
+		
 	}
     render() {
 		const {  user, referrer } = this.state;
 		if(referrer) return <Redirect to={referrer} ></Redirect>
         return (
-                	<div className="container">
-						<a href="/">
-							<img className="logo" src={ logo} alt="Картинка загружается"  property="image"/>
-						</a>
+            <div className="container">
+				<a href="/">
+					<img className="logo" src={ logo} alt="Картинка загружается"  property="image"/>
+				</a>
             
 
 			<div className="contact__info">
@@ -75,7 +112,7 @@ class UserProfile extends Component{
 
 			<div className="profile__info">
 				<h1>ИНФОРМАЦИЯ</h1>
-				<form >
+				<form onSubmit={this.changePassword} >
 					<div className="profile__form">
 						<div className="form__inputs">
 							<div className="input__line">
@@ -106,15 +143,48 @@ class UserProfile extends Component{
 									<p className="points__number__two">{user.score}</p>
 							</div>
 						</div>
-					</div>
-					<div className="buttons">
-						<button className="button" type="submit" onClick={this.say}>
-							<div className="button__border__one">
-								<p>ИЗМЕНИТЬ</p>
+						</div>
+						{this.state.isChange
+							? <div>
+								<div class="password__changing">
+									<div class="form__inputs">
+										<div class="input__line">
+											<div class="certain__input">
+												<h1 for="oldpassword">СТАРЫЙ ПАРОЛЬ</h1>
+												<input type="password" name="oldpassword" />
+											</div>
+											<div class="certain__input">
+												<h1 for="newpassword">НОВЫЙ ПАРОЛЬ</h1>
+												<input type="password" name="newpassword"/>
+											</div>
+											<div class="certain__input">
+												<h1 for="newpasswordagain">ПОВТОРИТЕ ПАРОЛЬ</h1>
+												<input type="password" name="newpasswordagain"/>
+											</div>
+										</div>
+									</div>
+								</div>	
+						
+					
+								<div class="buttons">
+									<button class="button" type="submit" >
+										<div class="button__border__one">
+											<p>СОХРАНИТЬ ИЗМЕНЕНИЯ</p>
+										</div>
+										<div class="button__border__two"></div>
+									</button>	
+								</div>
+							</div> 
+						 	: <div className="buttons">
+								<button className="button"  onClick={this.say}>
+								<div className="button__border__one">
+									<p>ИЗМЕНИТЬ</p>
+								</div>
+								<div className="button__border__two"></div>
+								</button>	
 							</div>
-							<div className="button__border__two"></div>
-						</button>	
-					</div>
+						 }
+					
 				</form>
 			</div>
 

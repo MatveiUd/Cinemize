@@ -79,10 +79,8 @@ public class OrderController {
     @PostMapping("/accept/{order}")
     public void changeStatus(@PathVariable Order order,Principal principalUser){
 
-        UserModel user = null;
-        if (principalUser != null) {
-            user = userRepository.findUserByUsername(principalUser.getName());
-        }
+        UserModel user = userRepository.findUserByUsername(order.getUserEmail());
+
         int score = 0;
 
         if(!order.getBonusCardNumber().equals("")){
