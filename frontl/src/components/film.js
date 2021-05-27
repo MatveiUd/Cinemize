@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import Footer from './footer';
+import Header from "./header"
 
 
 class film extends Component{
@@ -12,15 +13,9 @@ class film extends Component{
   }
 
   componentDidMount() {
-    const url = "http://localhost:8080/film"
+    const url = "http://localhost:8080/api/film"
     
-    let req = new Request(url, {
-
-        method: 'GET',
-        credentials: 'include'
-        
-    })
-    fetch(req)
+    fetch(url)
       .then((response) => response.json())
       .then((result) => {
         this.setState({
@@ -43,15 +38,15 @@ class film extends Component{
     } else {
       return (
       <div>
-        <h1>CINEMIZE</h1>
-        <ul>
+        <Header/>
           {
-            films.map(film => 
-              <li key={ film.id}> {film.text} </li>)
-          }
-        </ul>
-        
-        
+            films.map(film =>
+              <div key={ film.id}>
+                <h3>{film.title}</h3>
+                <h4>{film.originTitle}</h4>
+                <span>{ film.genre.map(genre => genre.genreName)}</span>
+              </div>)
+        }
       </div>
     )}
     

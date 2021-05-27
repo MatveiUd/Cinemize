@@ -11,15 +11,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
    
     @Autowired
     UserService userService;
-    
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,17 +33,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/cookies").permitAll()
+                .antMatchers("/","/api/film","/registration","/api/session/**","/api/order").permitAll()
                 .anyRequest().authenticated()
-                .and().httpBasic()
-                .and().logout().permitAll()
-                .and().sessionManagement().disable()
-                ;
+                .and()
+                .httpBasic();
     }
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("*");
+    }
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

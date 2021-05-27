@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "./reset.css";
+
+.login__form_regiser {
+  margin: 100px auto 200px;
+  height: 724px;
+  width: 700px;
+  display: flex;
+  position: relative;
+  margin-bottom: 300px;
+}
+
+.buttons_regiser {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form__inputs_regiser {
+  width: 550px;
+  margin: 0 auto;
+  text-align: center;
+  display: inline-block;
+}
+
+.form__inputs_regiser input {
+  text-overflow: ellipsis;
+  width: 80%;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 2px #05bbb0 solid;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  color: #bda1e0;
+  margin-bottom: 50px;
+  margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.form__inputs_regiser h1 {
+  width: 100%;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.button_regiser {
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  height: 104px;
+  width: 404px;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+}
+
+.button__border__one_regiser {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  width: 390px;
+  border: 3px #05bbb0 solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button__border__one_regiser p {
+  font-weight: 400;
+  font-size: 26px;
+  margin: auto;
+}
+
+.button__border__two_regiser {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 90px;
+  width: 390px;
+  border: 3px #a96bf8 solid;
+}
+
+.button_regiser:hover .button__border__two_regiser {
+  display: block;
+  right: 0;
+}

@@ -1,0 +1,301 @@
+.top__pannel {
+  width: 100%;
+  height: 224px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid #05bbb0;
+  margin-bottom: 50px;
+}
+
+.top__pannel__image__container {
+  width: 50%;
+}
+
+.top__pannel__data {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding-left: 35px;
+}
+
+.top__pannel__film {
+  color: white;
+  font-weight: 600;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.top__pannel__session {
+  color: white;
+  font-weight: 400;
+  font-size: 38px;
+}
+
+.center__pannel {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.place__numbers {
+  width: 15px;
+  height: 424px;
+}
+
+.place__numbers p {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 70px;
+  text-align: center;
+  color: white;
+  height: 70px;
+  margin-bottom: 30px;
+}
+
+.screen__container {
+  width: 100%;
+  height: 39px;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.screen {
+  width: 560px;
+  content: url("../img/screen.svg");
+  position: absolute;
+  left: 15px;
+}
+
+.scheme {
+  width: 540px;
+  position: relative;
+}
+
+.selected__places {
+  position: relative;
+  width: 551px;
+  align-content: center;
+}
+
+.selected__places h2 {
+  margin-top: 0;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 30px;
+  color: #a2e2de;
+  text-align: center;
+}
+
+.selected__places__container {
+  align-content: center;
+  margin-top: 110px;
+  text-align: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 30px;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.selected__places__container p {
+  margin-bottom: 45px;
+}
+
+.ticket__cost {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 30px;
+  color: #a2e2de;
+  text-align: center;
+}
+
+.places__row {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  margin-bottom: 30px;
+}
+
+.checkbox__holder {
+  height: 70px;
+  width: 70px;
+  display: flex;
+}
+
+.place {
+  display: block;
+  margin: auto;
+  -webkit-appearance: none;
+  height: 70px;
+  width: 70px;
+  background-color: #d5b5fd;
+}
+
+.place:checked {
+  -webkit-appearance: none;
+  height: 60px;
+  width: 60px;
+  background-color: white;
+}
+
+.place__locked {
+  -webkit-appearance: none;
+  height: 60px;
+  width: 60px;
+  background-color: #8874a0;
+}
+
+.scheme__info__container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.scheme__info {
+  display: flex;
+  line-height: 30px;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 400;
+}
+
+.scheme__info p {
+  margin-left: 15px;
+}
+
+.bottom__pannel {
+  width: 100%;
+  margin-top: 100px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+
+.bottom__input__row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.bottom__input__row:last-child h2 {
+  margin-left: 40px;
+}
+
+.bottom__input__row h2 {
+  margin-left: 15px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.bottom__inputs {
+  margin-left: 15px;
+  color: #ffffff;
+}
+
+.bottom__inputs h1 {
+  font-size: 25px;
+  font-weight: 500;
+
+  margin-bottom: 25px;
+}
+
+.bottom__checkbox {
+  height: 25px;
+  width: 25px;
+  -webkit-appearance: none;
+  border: 2px #d5b5fd solid;
+  margin: 0;
+}
+
+.bottom__checkbox:checked {
+  -webkit-appearance: none;
+  content: url("../img/bottom__checked.svg");
+}
+
+.card__number__input {
+  text-overflow: ellipsis;
+  height: 25px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  margin-left: 50px;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 0 2px 0 #05bbb0;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  color: #bda1e0;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+
+.bottom__input__row:last-child .card__number__input {
+  margin-left: 167px;
+}
+
+.point__input {
+  text-overflow: ellipsis;
+  height: 25px;
+
+  border: 0;
+  margin: 0;
+  padding: 0;
+  margin-left: 148px;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 0 2px 0 #05bbb0;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  color: #bda1e0;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+.email__input {
+  text-overflow: ellipsis;
+  height: 25px;
+
+  border: 0;
+  margin: 0;
+  padding: 0;
+  margin-left: 143px;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: 0 2px 0 #05bbb0;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  color: #bda1e0;
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.bottom__pannel .buy__button {
+  width: 464px;
+}
+
+.bottom__pannel .buy__button__border__one {
+  width: 450px;
+}
+
+.bottom__pannel .buy__button__border__two {
+  width: 450px;
+}

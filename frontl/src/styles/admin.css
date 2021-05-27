@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "./reset.css";
+
+.film__panel {
+  width: 1140px;
+  margin-top: 80px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.added__film {
+  width: 360px;
+  margin-bottom: 86px;
+  margin-right: 20px;
+}
+
+.added__film__image {
+  width: 360px;
+  height: 179px;
+}
+
+.added__film__name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #a2e2de;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.added__film__name:hover {
+  color: #bda1e0;
+  text-decoration: underline;
+}
+
+.add__new__film {
+  border: 3px solid white;
+  height: 174px;
+  width: 354px;
+  display: flex;
+  align-items: center;
+}
+
+.add__new__film:hover {
+  border: 3px solid #bda1e0;
+  height: 174px;
+  width: 354px;
+  display: flex;
+  align-items: center;
+}
+
+.add__new__film:hover .plus {
+  content: url("../img/plusHover.svg");
+}
+
+.plus {
+  content: url("../img/plus.svg");
+  align-content: center;
+  display: block;
+  margin: 0 auto;
+}
+
+.schedule__edit__title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 37px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 65px;
+}
+
+.session__image {
+  width: 264px;
+  height: 130px;
+}
+
+.session__name__time p {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #a2e2de;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.session__name__time:hover p {
+  color: #bda1e0;
+  text-decoration: underline;
+}
+
+.schedule__day__title {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 37px;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+.schedule__day__row {
+  width: 100%;
+  display: flex;
+}
+
+.schedule__day__row .add__new__film {
+  width: 261px;
+  height: 128px;
+}
+
+.schedule__day__session:last-child {
+  margin-right: 0;
+}
+
+.schedule__day__session {
+  width: 264px;
+  margin-right: 20px;
+}
+
+.permission__button__border__two {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 120px;
+  width: 600px;
+  border: 3px #a96bf8 solid;
+}
+
+.permission__button {
+  color: #ffffff;
+  position: absolute;
+  height: 134px;
+  width: 614px;
+  margin: 50px 0 50px 0;
+  display: block;
+}
+
+.permission__button__border__one {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  width: 600px;
+  border: 3px #05bbb0 solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.permission__button__border__one p {
+  font-weight: 600;
+  font-size: 40px;
+  margin: auto;
+  text-transform: uppercase;
+}
+
+.permission__button:hover .permission__button__border__two {
+  display: block;
+}
+
+.permission__button__container {
+  display: block;
+}
