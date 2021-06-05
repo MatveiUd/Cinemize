@@ -260,7 +260,7 @@ class Admin extends Component{
                             }
 		
                         </div>
-                        <h3 class="schedule__day__title">Добваить</h3>
+                        <h3 class="schedule__day__title">Добавить</h3>
                         <div class="schedule__day__row">                           
                             <div class="add__new__film" >
                                 <div class="plus" id="session" onClick={this.routing}>

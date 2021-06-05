@@ -29,18 +29,27 @@ class addFilm extends Component {
         let title = e.target.elements.title.value;
         let originTitle = e.target.elements.originTitle.value
         let description = e.target.elements.description.value
-        let genre = [];
-        for (let i = 0; i < e.target.elements.genre.length; i++) {
+        let genre;
+        if (e.target.elements.genre.length > 1) {
+            genre = []
+            for (let i = 0; i < e.target.elements.genre.length; i++) {
             genre.push(e.target.elements.genre[i].value); 
-        }
-        let country = []
-        for (let i = 0; i < e.target.elements.country.length; i++) {
-            country.push(e.target.elements.country[i].value); 
-        }
+            }
+        } else genre = e.target.elements.genre.value
+        
+        
+        let country;
+        if (e.target.elements.country.length > 1) {
+            country = []
+            for (let i = 0; i < e.target.elements.country.length; i++) {
+                country.push(e.target.elements.country[i].value); 
+            }
+        } else country = e.target.elements.country.value
+        
         let director = e.target.elements.director.value
         let data = e.target.elements.data.value;
         let duration = e.target.elements.duration.value
-        console.log(genre,country,director)
+        
         let imagesUrl = [];
         for (let i = 0; i < e.target.elements.imageUrl.length; i++) {
             imagesUrl.push(e.target.elements.imageUrl[i].value); 

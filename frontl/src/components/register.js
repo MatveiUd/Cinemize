@@ -58,7 +58,7 @@ class Regiser extends Component{
 					<h1 htmlFor="name">ИМЯ</h1>
 					<input type="text" name="name" required/>
 					<h1 htmlFor="birthday">ДАТА РОЖДЕНИЯ</h1>
-					<input type="date" name="birthday" required/>
+					<input type="date" name="birthday" max="2005-01-01" required/>
 					<h1 htmlFor="phone">ТЕЛЕФОН</h1>
 					<PhoneInput name="phone" placeholder="+7 923 456 98 56" required value={ this.state.value} onChange={(e) => this.setState({value: e}) } ></PhoneInput>
 				</div>

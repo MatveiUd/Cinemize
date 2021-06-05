@@ -18,31 +18,33 @@ class login extends Component{
     }
     async auth(e) {
         e.preventDefault();
-
+        
         let username = e.target.elements.username.value;
         let password = e.target.elements.password.value
+        if (/[0-9a-zA-Z]/.test(password)) {
+             const userPassInBase64 = btoa(username + ':' + password);
 
-        const userPassInBase64 = btoa(username + ':' + password);
-
-        const headers = new Headers();
-        headers.set('Authorization', 'Basic ' + userPassInBase64)
+            const headers = new Headers();
+            headers.set('Authorization', 'Basic ' + userPassInBase64)
 
 
-        const url = "http://localhost:8080/user"
-        const response = await fetch(url, {
-            method: "GET",
-            headers
-        })
-        if (response.ok) {
-            const data = await response.json()
-            localStorage.setItem("authData", userPassInBase64)
-            localStorage.setItem("user", JSON.stringify(data))
-            this.setState({referrer:'/lk'})
-        } else if (response.status === 401) {
-            alert('Пользователь не найден')
-        } else {
-            throw new Error('invalid response')
-        }
+            const url = "http://localhost:8080/user"
+            const response = await fetch(url, {
+                method: "GET",
+                headers
+            })
+            if (response.ok) {
+                const data = await response.json()
+                localStorage.setItem("authData", userPassInBase64)
+                localStorage.setItem("user", JSON.stringify(data))
+                this.setState({referrer:'/lk'})
+            } else if (response.status === 401) {
+                alert('Пользователь не найден')
+            } else {
+                throw new Error('invalid response')
+            }
+            } else alert("Пароль должен состоять из латинских символов и цифр")
+       
     
     }
     render() {
