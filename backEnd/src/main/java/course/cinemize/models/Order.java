@@ -25,7 +25,7 @@ public class Order {
         this.usedScore = usedScore;
         this.bonusCardNumber = bonusCardNumber;
         this.userEmail = userEmail;
-        this.paidFor = false;
+        this.paidFor = null;
     }
 
     public Long getId() {

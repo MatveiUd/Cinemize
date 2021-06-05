@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/api/film","/registration","/api/session/**","/api/order").permitAll()
+                .antMatchers("/","/api/film","/registration","/api/session/**","/api/order/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

@@ -22,6 +22,7 @@ class MakeOrder extends Component{
 			session: [],
 			isLoad: false,
 			cost: 0,
+			costWithDiscount: 0,
 			selectedPlaces: [],
 			pointsInput: "",
 			cardInput: ""
@@ -67,8 +68,23 @@ class MakeOrder extends Component{
 	}
 	inputDiscount(e) {
 		
-		if (e.target.className === "card__number__input") this.setState({cardInput: e.target.value})
-		else if (e.target.className === "point__input") this.setState({pointsInput: e.target.value})
+		if (e.target.className === "card__number__input") this.setState({
+			cardInput: e.target.value,	
+		})
+			
+		else if (e.target.className === "point__input") {
+			console.log(e.target.value == "");
+			let points = 0
+			
+			if (e.target.value != "") {
+				points = parseInt(e.target.value)
+			} 
+			this.setState({
+				pointsInput: e.target.value,
+				costWithDiscount: this.state.cost - points
+			})
+			
+		}
 		
 	}
 	sortPlace(session) {
@@ -113,22 +129,13 @@ class MakeOrder extends Component{
 		let usedPoints = 0;
 		if(document.getElementsByClassName("point__input")[0].value !== "") usedPoints = parseInt(document.getElementsByClassName("point__input")[0].value)
 		if(isAuthBoolean()) points = this.state.user.score
-		console.log(parseInt(usedPoints, points))
+		
 		if (document.getElementsByClassName("email__input")[0].value !== "") {
 			if (usedPoints <= points) {
 			let placeId = []
 			for (let i = 0; i < this.state.selectedPlaces.length;i++) placeId.push(this.state.selectedPlaces[i].id)
 			
-			// let data = {
-			// 	placeId: placeId,
-			// 	cost: this.state.cost,
-			// 	usedScore: document.getElementsByClassName("point__input")[0].value,
-			// 	bonusCardNumber: document.getElementsByClassName("card__number__input")[0].value,
-			// 	sessionId: this.state.session[0].id,
-			// 	email: document.getElementsByClassName("email__input")[0].value
-
-			// }
-			// console.log(data);
+			
 			let formData = new FormData();
 			formData.append('placeId', placeId);
 			formData.append('cost', this.state.cost);
@@ -141,20 +148,47 @@ class MakeOrder extends Component{
 			if ("user" in localStorage) {
 			    headers.set('Authorization', 'Basic ' + localStorage.authData)    
 			}
-			
 			fetch(url, {
 			    method: "POST",
 			    body: formData,
 			    headers
 			})
 			    .then(response => {
-			        console.log(response);
+			        
 			    if (response.ok) {
 			        alert("Заказ успешно создан")
 			    } else if (response.status === 401) {
 			        alert("Вы не вошли в систему")
-			    }
-			})
+					}
+					return response.json()
+				})
+				.then(result => {
+					let isContine = true;
+					let timerId = setTimeout(function tick() {			
+						if (isContine) {
+							fetch(`http://localhost:8080/api/order/${result.id}`)
+							.then(response => { return response.json() })
+								.then(result => {
+								console.log(result);
+								if (result.padFor == false) {
+									isContine = false
+									alert("Оплата не удалавсь")
+								}
+								if (result.padFor == true) {
+									isContine = false
+									alert("Оплата прошла успешно")
+
+								}
+							})
+
+							timerId = setTimeout(tick, 2000); 
+						}
+						
+					}, 2000);
+					
+				})
+				
+					
 		}else alert("Многовато баллов, не думаете?")
 		} else alert("Введите e-mail")
 		
@@ -169,7 +203,8 @@ class MakeOrder extends Component{
 
 			this.setState({
 				cost: this.state.cost + this.state.session[0].cost,
-				selectedPlaces: selectedPlaces
+				selectedPlaces: selectedPlaces,
+				costWithDiscount: this.state.costWithDiscount + this.state.session[0].cost
 			})
 		}
 		else {
@@ -179,7 +214,8 @@ class MakeOrder extends Component{
 			
 			this.setState({
 				cost: this.state.cost - this.state.session[0].cost,
-				selectedPlaces: selectedPlaces
+				selectedPlaces: selectedPlaces,
+				costWithDiscount: this.state.costWithDiscount - this.state.session[0].cost
 			})
 		}
 		
@@ -283,15 +319,24 @@ class MakeOrder extends Component{
 														disabled={this.inputDiscountStatus(this.state.pointsInput) ? false : true}
 														onChange={(e) => this.inputDiscount(e) }/>
 												</div>
+												
 												<div className="bottom__input__row">
 													
 													<h2 >БАЛЛЫ</h2>
 													<input type="text"
 														className="point__input"
 														placeholder="0"
+														
 														disabled={isAuthBoolean() && this.inputDiscountStatus(this.state.cardInput) ? false : true}
-														onChange={(e) => this.inputDiscount(e) }/>
+														onChange={(e) => this.inputDiscount(e)} />
+													
 												</div>
+												{/* <div class="button_add_code">
+													<div class="button_add_code_border__one">
+															<p>Применить</p>
+													</div>
+													<div class="button_add_code_border__two"></div>
+												</div> */}
 												<div className="bottom__input__row">
 													<h2>EMAIL</h2>
 													<input type="text" required className="email__input" defaultValue={isAuthBoolean() ? this.state.user.username : ""}  placeholder="example@mail.com" />
@@ -300,7 +345,7 @@ class MakeOrder extends Component{
 										</div>
 										<div className="buy__button" onClick={this.buyTicket}>
 											<div className="buy__button__border__one">
-												<p >{this.state.cost}₽ | ОПЛАТИТЬ</p>
+												<p >{this.state.costWithDiscount}₽ | ОПЛАТИТЬ</p>
 											</div>
 											<div className="buy__button__border__two"></div>
 										</div>

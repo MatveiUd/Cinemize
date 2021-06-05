@@ -31,8 +31,12 @@ public class OrderController {
     public List<Order> getOrders(){
         return orderRepo.findAll();
     }
+    @GetMapping("{order}")
+    public Order getOrder(@PathVariable Order order){
+        return order;
+    }
     @PostMapping
-    public ResponseEntity<String> addOrder(@RequestParam List<Long> placeId,
+    public Order addOrder(@RequestParam List<Long> placeId,
                                            @RequestParam int cost,
                                            @RequestParam int usedScore,
                                            @RequestParam String bonusCardNumber,
@@ -76,11 +80,12 @@ public class OrderController {
             user.setOrders(userOrders);
             userRepository.save(user);
         }
-
-        return ResponseEntity.ok().build();
+        List<Order> makedOrders =  orderRepo.findAllByUserEmail(order.getUserEmail());
+        Order makedOrder = makedOrders.get(makedOrders.size() - 1);
+        return makedOrder;
     }
     @PostMapping("/accept/{order}")
-    public void changeStatus(@PathVariable Order order,Principal principalUser){
+    public void accept(@PathVariable Order order){
 
         UserModel user = userRepository.findUserByUsername(order.getUserEmail());
 
@@ -130,5 +135,13 @@ public class OrderController {
 
         mailService.send(order.getUserEmail(),"Кассовый чек",message);
         orderRepo.save(order);
+
+
+    }
+    @PostMapping("/defeat/{order}")
+    public void defeat(@PathVariable Order order){
+        order.setPadFor(false);
+        orderRepo.save(order);
+
     }
 }

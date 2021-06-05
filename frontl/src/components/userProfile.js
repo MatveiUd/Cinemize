@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect} from 'react-router'
 import logo from '../img/logo.png'
+import Footer from './footer';
 
 
 function isAuth() {
@@ -19,7 +20,8 @@ class UserProfile extends Component{
 		this.state = {
 			referrer: isAuth(),
 			user: getUser(),
-			isChange: false
+			isChange: false,
+			paidOrder: []
 		}
         
 		this.logout = this.logout.bind(this)
@@ -36,8 +38,20 @@ class UserProfile extends Component{
             headers
         })
 			.then(response => response.json())
-			.then(result => {			
-				this.setState({ user: result })
+			
+			.then(result => {
+				console.log(result);
+				let buff = []
+				for (let i = 0; i < result.orders.length; i++){
+					if (result.orders[i].padFor == true) {
+						buff.push(result.orders[i])
+					}
+				}
+				
+				this.setState({
+					user: result,
+					paidOrder: buff
+				})
 				
 			})
 	}
@@ -56,32 +70,35 @@ class UserProfile extends Component{
 		
 		let username = e.target.elements.email.value
 		let password = e.target.elements.oldpassword.value
+		if (/[0-9a-zA-Z]/.test(password)) {
+			let userPassInBase64 = btoa(username + ':' + password);
 		
-		let userPassInBase64 = btoa(username + ':' + password);
-		
-		if (e.target.elements.newpassword.value === e.target.elements.newpasswordagain.value) {
-			let userPassInBase64New = btoa(username + ':' + e.target.elements.newpassword.value);
-			const headers = new Headers();
-			headers.set('Authorization', 'Basic ' + userPassInBase64)
-			let formData = new FormData()
-			formData.append("password", e.target.elements.newpassword.value)
-			const url = "http://localhost:8080/changepass"
-        	fetch(url, {
-				method: "POST",
-				body: formData,
-				headers
-        	})
-			.then(response => {
-				if (response.ok) {
-					
-					localStorage.setItem("authData", userPassInBase64New)
-					alert("Пароль успешно изменен")
-					
-				} else if (response.status === 401) {
-					alert("Неверный пароль")
-				}
+			if (e.target.elements.newpassword.value === e.target.elements.newpasswordagain.value) {
+				let userPassInBase64New = btoa(username + ':' + e.target.elements.newpassword.value);
+				const headers = new Headers();
+				headers.set('Authorization', 'Basic ' + userPassInBase64)
+				let formData = new FormData()
+				formData.append("password", e.target.elements.newpassword.value)
+				const url = "http://localhost:8080/changepass"
+				fetch(url, {
+					method: "POST",
+					body: formData,
+					headers
+				})
+				.then(response => {
+					if (response.ok) {
+						
+						localStorage.setItem("authData", userPassInBase64New)
+						alert("Пароль успешно изменен")
+						
+					} else if (response.status === 401) {
+						alert("Неверный пароль")
+					}
 			})
-		} else alert("Пароли не совпадают" )
+			} else alert("Пароли не совпадают" )	
+		} else alert("Пароль должен состоять из латинских символов")
+		
+		
 		
 			
 		
@@ -193,7 +210,7 @@ class UserProfile extends Component{
 				<h1>ВАШИ СЕАНСЫ</h1>
 				<div className="sessions">
 					{
-						this.state.user.orders.map(order => (
+						this.state.paidOrder.map(order => (
 						<div key={order.id} className="session">
 							<div><img src={order.tickets[0].sessionId.film.frames[1].imageUrl} alt="Картинка загружается"  property="image"/></div>
 										
@@ -210,7 +227,7 @@ class UserProfile extends Component{
 				</div>
 			</div>
 		
-			
+			<Footer/>
 		</div>
                     
                 )
